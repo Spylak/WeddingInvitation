@@ -1,0 +1,39 @@
+﻿@page "/"
+
+
+<PageTitle>Index</PageTitle>
+
+<div style="background-image: url(images/chania.jpg);background-repeat: no-repeat;background-size: cover;width: 100vw;height: 100vh  ">
+ <MudCarousel @onclick="OnClick"  Style="height: 60%; color: #ffcd39;top: 20%"  @bind-SelectedIndex="count" ShowDelimiters="true"  ShowArrows="false" AutoCycle="false"  TData="object">
+                    <MudCarouselItem Style="text-align: center"  Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
+                        <img style="cursor: pointer;border-radius: 5px" height="90%" width="70%" src="images/eventImg1.jpg"/>
+                    </MudCarouselItem>
+     <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
+         <img style="cursor: pointer;border-radius: 5px"  height="90%" width="70%" src="images/goldField.jpg"/>
+     </MudCarouselItem>
+     <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
+         <img style="cursor: pointer;border-radius: 5px"  height="90%" width="70%" src="images/chania.jpg"/>
+     </MudCarouselItem>
+     </MudCarousel>
+  <div>
+    <button type="button" class="btn btn-primary" style="position: absolute;top: 85%;left: 45%;">We will come!</button>
+  </div>
+</div>
+
+
+
+@code{
+    
+    private int count = 0;
+  private string AnimationEntrance = "animate__animated animate__rotateInDownLeft";
+  private string AnimationExit = "animate__animated animate__rotateOutUpLeft";
+
+    private void OnClick()
+    {
+        count++;
+        if (count > 2)
+        {
+            count = 0;
+        }
+    }
+}
