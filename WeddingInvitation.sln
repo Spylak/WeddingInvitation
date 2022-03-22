@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingInvitation", "WeddingInvitation\WeddingInvitation.csproj", "{642CC74F-049D-4C2C-BC2A-45143AB79BD9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvitationAPI", "InvitationAPI\InvitationAPI.csproj", "{26462A3A-8F13-426A-931D-E28378543646}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{642CC74F-049D-4C2C-BC2A-45143AB79BD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{642CC74F-049D-4C2C-BC2A-45143AB79BD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{642CC74F-049D-4C2C-BC2A-45143AB79BD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26462A3A-8F13-426A-931D-E28378543646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26462A3A-8F13-426A-931D-E28378543646}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26462A3A-8F13-426A-931D-E28378543646}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26462A3A-8F13-426A-931D-E28378543646}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
