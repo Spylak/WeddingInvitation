@@ -15,7 +15,13 @@
 </head>
 
 <body>
-    <div id="app">Loading...</div>
+<div id="app">
+    <div style="height: 100vh;text-align: center;background-image: url(images/chania.jpg);background-size: cover;">
+        <div class="lds-ring loadingH" ><div></div><div></div><div></div><div></div></div>
+        <h3 style="color: orange;font-weight: bold">Loading...</h3>
+    </div>
+
+</div>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
@@ -29,3 +35,51 @@
 </body>
 
 </html>
+<style>
+    @media screen and (max-width:500px)  {
+        .loadingH {
+            margin-top: 50%;
+        }
+    }
+    @media screen and (min-width:500px)  {
+        .loadingH {
+            margin-top: 20%;
+        }
+    }
+
+    .lds-ring {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+    }
+    .lds-ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border: 8px solid orange;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: orange transparent transparent transparent;
+    }
+    .lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+    }
+    .lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+    }
+    .lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+    }
+    @keyframes lds-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
