@@ -14,7 +14,7 @@ public class EmailController : ControllerBase
         _configuration = configuration;
     }
 
-    [HttpPost(Name = "Authenticate")]
+    [HttpPost]
     public async Task<IActionResult> GetToken(string email)
     {
         

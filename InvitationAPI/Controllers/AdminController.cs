@@ -14,7 +14,7 @@ public class AdminController : ControllerBase
         _configuration = configuration;
     }
 
-    [HttpGet(Name = "Authenticate")]
+    [HttpGet]
     public string GetToken(string usernameInput,string passwordInput)
     {
         var username=_configuration.GetValue<string>("AdminCreds:Username");

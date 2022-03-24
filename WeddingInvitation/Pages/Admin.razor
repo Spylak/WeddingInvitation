@@ -1,6 +1,13 @@
 @page "/Admin"
+@inject IConfiguration config
 <h3>Admin</h3>
 
 @code {
-    
+    protected override void OnInitialized()
+    {
+        Console.WriteLine(config.GetValue<string>("Test"));
+        Console.WriteLine(config.GetValue<string>("Value:Test1"));
+    }
+
 }
+
