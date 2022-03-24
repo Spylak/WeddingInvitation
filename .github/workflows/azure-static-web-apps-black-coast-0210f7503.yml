@@ -23,7 +23,7 @@ jobs:
         with:
           files: '**/appsettings.json'
         env:
-          Value.Test1: ${{ secrets.ValueTest! }}
+          Value.Test1: ${{ secrets.ValueTest1 }}
           Test: ${{ secrets.Value }}
       - name: Build And Deploy
         id: builddeploy
