@@ -24,8 +24,10 @@ public class GoogleSheetsHelper
     }
     private GoogleCredential GetCredentialsFromFile()
     {
+        bool isDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
         GoogleCredential credential;
-        using (var stream = new FileStream("googleKey.json", FileMode.Open, FileAccess.Read))
+        string jsonFile = isDevelopment ? "googleSheetsDev.json" : "googleKey.json";
+        using (var stream = new FileStream(jsonFile, FileMode.Open, FileAccess.Read))
         {
             credential = GoogleCredential.FromStream(stream).CreateScoped(Scopes);
         }

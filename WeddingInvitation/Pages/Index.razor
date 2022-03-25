@@ -49,13 +49,13 @@
         timer.Interval = 6000;
         timer.Elapsed +=async(_, _) => await  OnClick();
         var uri = _navMan.ToAbsoluteUri(_navMan.Uri);
-        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("admin", out var admin))
-        {
-            if (admin=="true")
-            {
-                _navMan.NavigateTo("/admin");
-            }
-        }
+        // if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("admin", out var admin))
+        // {
+        //     if (admin=="true")
+        //     {
+        //         _navMan.NavigateTo("/admin");
+        //     }
+        // }
         if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("email", out var email))
         {
             Email = email;
