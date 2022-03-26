@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.Configure<GoogleCreds>(options => builder.Configuration.GetSection("GoogleCreds").Bind(options));
 builder.Services.AddSingleton(typeof(GoogleSheetsHelper));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
