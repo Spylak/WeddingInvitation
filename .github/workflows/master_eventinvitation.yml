@@ -24,18 +24,18 @@ jobs:
       - name: App Settings Variable Substitution
         uses: microsoft/variable-substitution@v1
         with:
-          files: '**/googleSheets.json'
+          files: '**/appsettings.json'
         env:
-          type: ${{ secrets.googletype }}
-          project_id: ${{ secrets.GOOGLEPROJECTID }}
-          private_key_id: ${{ secrets.GOOGLEPRIVATEKEYID }}
-          private_key: ${{ secrets.GOOGLEPRIVATEKEY }}
-          client_email: ${{ secrets.GOOGLECLIENTEMAIL }}
-          client_id: ${{ secrets.GOOGLECLIENTID }}
-          auth_uri: ${{ secrets.GOOGLEAUTHURI }}
-          token_uri: ${{ secrets.GOOGLETOKENURI }}
-          auth_provider_x509_cert_url: ${{ secrets.GOOGLEAUTHPROVIDERCERT }}
-          client_x509_cert_url: ${{ secrets.GOOGLECLIENTCERT }}
+          GoogleCreds.type: ${{ secrets.googletype }}
+          GoogleCreds.project_id: ${{ secrets.GOOGLEPROJECTID }}
+          GoogleCreds.private_key_id: ${{ secrets.GOOGLEPRIVATEKEYID }}
+          GoogleCreds.private_key: ${{ secrets.GOOGLEPRIVATEKEY }}
+          GoogleCreds.client_email: ${{ secrets.GOOGLECLIENTEMAIL }}
+          GoogleCreds.client_id: ${{ secrets.GOOGLECLIENTID }}
+          GoogleCreds.auth_uri: ${{ secrets.GOOGLEAUTHURI }}
+          GoogleCreds.token_uri: ${{ secrets.GOOGLETOKENURI }}
+          GoogleCreds.auth_provider_x509_cert_url: ${{ secrets.GOOGLEAUTHPROVIDERCERT }}
+          GoogleCreds.client_x509_cert_url: ${{ secrets.GOOGLECLIENTCERT }}
       - name: Build with dotnet
         run: dotnet build InvitationAPI --configuration Release
 
