@@ -17,7 +17,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "allowed",
         builder =>
         {
-            builder.WithOrigins("https://black-coast-0210f7503.1.azurestaticapps.net",
+            builder.WithOrigins("https://www.augoustosstachania.site",
                 "http://localhost:5026",
                 "https://localhost:7076").AllowAnyHeader()
                 .AllowAnyMethod();;
