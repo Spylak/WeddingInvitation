@@ -12,7 +12,16 @@ builder.Services.AddSingleton(typeof(GoogleSheetsHelper));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "allowed",
+        builder =>
+        {
+            builder.WithOrigins("https://eventinvitation.azurewebsites.net",
+                "http://localhost:5026",
+                "https://localhost:7076");
+        });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

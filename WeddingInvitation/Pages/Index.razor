@@ -1,39 +1,39 @@
 ﻿@page "/"
 @inject NavigationManager _navMan
-
+@inject IJSRuntime _jsRuntime
+@inject ILocalStorageService _localStorage
 @using System.Timers
 @using Microsoft.AspNetCore.WebUtilities
 
 <PageTitle>Index</PageTitle>
 
 <div style="background-image: url(images/chania.jpg);background-repeat: no-repeat;background-size: cover;width: 100vw;height: 100vh  ">
- <MudCarousel   Style="height: 80%; color: #ffcd39;top: 5%"  @bind-SelectedIndex="count" ShowDelimiters="true"  ShowArrows="false" AutoCycle="false"  TData="object">
-                    <MudCarouselItem Style="text-align: center"  Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-                        <img @onclick="OnClick" style="cursor: pointer;border-radius: 5px" height="90%" width="60%" src="images/eventImg1.jpg"/>
-                    </MudCarouselItem>
-     <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-         <img style="cursor: pointer;border-radius: 5px" @onclick="OnClick" height="90%" width="60%" src="images/invitation.jpeg"/>
-     </MudCarouselItem>
-     <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-         <img style="cursor: pointer;border-radius: 5px" @onclick="OnClick" height="90%" width="60%" src="images/invitation1.jpg"/>
-     </MudCarouselItem>
-     </MudCarousel>
-  <div style="text-align: center;margin-top: 50px">
-    <button type="button" class="btn btn-primary" >We will come!</button>
-    <button type="button" class="btn btn-danger" >We can't come.</button>
-  </div>
+    <MudCarousel Style="height: 80%; color: #ffcd39;top: 5%" @bind-SelectedIndex="count" ShowDelimiters="true" ShowArrows="false" AutoCycle="false" TData="object">
+        <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
+            <img @onclick="OnClick" style="cursor: pointer;border-radius: 5px" height="90%" width="60%" src="images/eventImg1.jpg"/>
+        </MudCarouselItem>
+        <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
+            <img style="cursor: pointer;border-radius: 5px" @onclick="OnClick" height="90%" width="60%" src="images/invitation.jpeg"/>
+        </MudCarouselItem>
+        <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
+            <img style="cursor: pointer;border-radius: 5px" @onclick="OnClick" height="90%" width="60%" src="images/invitation1.jpg"/>
+        </MudCarouselItem>
+    </MudCarousel>
+    <div style="text-align: center;margin-top: 50px">
+        <button type="button" class="btn btn-primary">We will come!</button>
+        <button type="button" class="btn btn-danger">We can't come.</button>
+    </div>
 </div>
-
 
 
 @code{
 
-    
-    public string Email { get; set; }
-    
+
+    public string Name { get; set; } = "";
+
     private int count = 0;
-  private string AnimationEntrance = "animate__animated animate__rotateInDownLeft";
-  private string AnimationExit = "animate__animated animate__rotateOutUpLeft";
+    private string AnimationEntrance = "animate__animated animate__rotateInDownLeft";
+    private string AnimationExit = "animate__animated animate__rotateOutUpLeft";
 
     private async Task OnClick()
     {
@@ -43,22 +43,30 @@
             count = 0;
         }
     }
+
     Timer timer = new Timer();
-    protected override void OnInitialized()
+
+    protected async override void OnInitialized()
     {
         timer.Interval = 6000;
-        timer.Elapsed +=async(_, _) => await  OnClick();
+        timer.Elapsed += async (_, _) => await OnClick();
         var uri = _navMan.ToAbsoluteUri(_navMan.Uri);
-        // if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("admin", out var admin))
-        // {
-        //     if (admin=="true")
-        //     {
-        //         _navMan.NavigateTo("/admin");
-        //     }
-        // }
-        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("email", out var email))
+    // if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("admin", out var admin))
+    // {
+    //     if (admin=="true")
+    //     {
+    //         _navMan.NavigateTo("/admin");
+    //     }
+    // }
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("name", out var name))
         {
-            Email = email;
+            Name = name;
+            await _localStorage.SetItemAsync("name", name);
+            await _jsRuntime.InvokeVoidAsync("window.history.pushState", new {additionalInformation = "Updated the URL with JS"}, null, _navMan.BaseUri);
+        }
+        if (Name=="")
+        {
+            Name = await _localStorage.GetItemAsync<string>("name");
         }
     }
 

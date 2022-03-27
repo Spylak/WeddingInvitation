@@ -9,8 +9,9 @@ public static class GuestMapper
         {
             Guest item = new()
             {
-                Email = value[0].ToString(),
-                Answer = value[1].ToString()
+                Name = value[0].ToString(),
+                Answer = value[1].ToString(),
+                Date = value[2].ToString()
             };
             items.Add(item);
         }
@@ -18,7 +19,7 @@ public static class GuestMapper
     }
     public static IList<IList<object>> MapToRangeData(Guest item)
     {
-        var objectList = new List<object>() { item.Email, item.Answer};
+        var objectList = new List<object>() { item.Name, item.Answer,item.Date};
         var rangeData = new List<IList<object>> { objectList };
         return rangeData;
     }
