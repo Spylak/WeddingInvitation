@@ -17,9 +17,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "allowed",
         builder =>
         {
-            builder.WithOrigins("https://eventinvitation.azurewebsites.net",
+            builder.WithOrigins("https://black-coast-0210f7503.1.azurestaticapps.net",
                 "http://localhost:5026",
-                "https://localhost:7076");
+                "https://localhost:7076").AllowAnyHeader()
+                .AllowAnyMethod();;
         });
 });
 var app = builder.Build();
@@ -31,6 +32,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("allowed");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
