@@ -6,12 +6,13 @@
 @using Microsoft.AspNetCore.WebUtilities
 @using System.Text.Json
 @using System.Text
+@using WeddingInvitation.Components
 @inject ApiClient _client
-
+@inject IDialogService DialogService
 <PageTitle>Index</PageTitle>
 
-<div style="background-image: url(images/chania.jpg);background-repeat: no-repeat;background-size: cover;width: 100vw;height: 100vh  ">
-    <MudCarousel Style="height: 80%; color: #ffcd39;top: 5%" @bind-SelectedIndex="count" ShowDelimiters="true" ShowArrows="false" AutoCycle="false" TData="object">
+<div style="background-image: url(images/chania.webp);background-repeat: no-repeat;background-size: cover;width: 100vw;height: 100vh  ">
+    <MudCarousel Style="height: 80%; color: #ffcd39;top: 2%" @bind-SelectedIndex="count" ShowDelimiters="true" ShowArrows="false" AutoCycle="false" TData="object">
         <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
             <img @onclick="OnClick" style="cursor: pointer;border-radius: 5px" height="90%" width="60%" src="images/eventImg1.jpg"/>
         </MudCarouselItem>
@@ -22,18 +23,30 @@
             <img style="cursor: pointer;border-radius: 5px" @onclick="OnClick" height="90%" width="60%" src="images/invitation1.jpg"/>
         </MudCarouselItem>
     </MudCarousel>
-    <div style="text-align: center;margin-top: 50px">
-        <MudButton Variant="Variant.Filled" Disabled="@(disabled["Yes"])" Color="Color.Info" OnClick="@(() => OnSubmit("Yes"))">We will come!</MudButton>
-        <MudButton Variant="Variant.Filled" Disabled="@(disabled["No"])" Color="Color.Error" OnClick="@(() => OnSubmit("No"))">We can't come.</MudButton>
+    <div style="text-align: center;margin-top: 30px">
+        <MudGrid>
+            <MudItem xs="6">
+                        <MudButton Variant="Variant.Filled" Disabled="@(disabled["Yes"])" Color="Color.Info" OnClick="@(() => OnSubmit("Yes"))">We will come!</MudButton>
+            </MudItem>
+            <MudItem xs="6">
+                        <MudButton Variant="Variant.Filled" Disabled="@(disabled["No"])" Color="Color.Error" OnClick="@(() => OnSubmit("No"))">We can't come.</MudButton>
+            </MudItem>
+            <MudItem xs="6">
+                        <MudButton Variant="Variant.Filled" Color="Color.Warning" OnClick="@(() => AddSong())">Add a song!</MudButton>
+            </MudItem> 
+            <MudItem xs="6" Style="text-align: center">
+                <MudTextField @bind-Value="Guest.Song" Variant="Variant.Outlined" ReadOnly="true" Style="background-color: #6610f2;height: 40px;width: 150px;color: #ffcd39;margin:-5px auto auto"></MudTextField>
+            </MudItem>
+        </MudGrid>
     </div>
 </div>
 
 
 @code{
 
-
-    public string Name { get; set; } = "";
-
+    
+    private string Name { get; set; } = "";
+    private Guest Guest { get; set; } = new Guest() {Song = "Song"};
     private Dictionary<string, bool> disabled = new Dictionary<string, bool>()
     {
         {"Yes", false},
@@ -52,6 +65,17 @@
         }
     }
 
+    public async Task AddSong()
+    {
+        var parameters = new DialogParameters { ["song"]=Guest.Song };
+
+        var dialog = DialogService.Show<SongDialog>("Add a song.", parameters);
+        var result = await dialog.Result;
+        if (result.Data is not null)
+        {
+            Guest.Song = result.Data.ToString();
+        }
+    }
     Timer timer = new Timer();
 
     private async Task OnSubmit(string answer)
@@ -73,6 +97,8 @@
         guest.Name = Name;
         guest.Answer = answer;
         guest.Date =DateTime.Now.ToString("dd.MM.yyyy HH:mm");
+        guest.Song = "Song";
+        Guest = guest;
         var requestContent = new StringContent(JsonSerializer.Serialize(guest), Encoding.UTF8, "application/json");
 
         if(guestList.Select(i => i.Name).Contains(guest.Name))

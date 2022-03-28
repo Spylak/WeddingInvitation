@@ -1,0 +1,35 @@
+
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.MusicNote" Class="mr-3 mb-n1"/>
+            Add a song Title or link here.
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTextField @bind-Value="song"></MudTextField>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Success" OnClick="AddSong">Add</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public string song { get; set; } 
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private void AddSong()
+    {
+        //In a real world scenario this bool would probably be a service to delete the item from api/database
+        Snackbar.Add("Song Added", Severity.Success);
+        MudDialog.Close(DialogResult.Ok(song));
+    }
+}
