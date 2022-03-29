@@ -9,7 +9,9 @@
 @using WeddingInvitation.Components
 @inject ApiClient _client
 @inject IDialogService DialogService
-<PageTitle>Index</PageTitle>
+@inject ISnackbar Snackbar
+
+<PageTitle>Invitation</PageTitle>
 
 <div style="background-image: url(images/chania.webp);background-repeat: no-repeat;background-size: cover;width: 100vw;height: 100vh  ">
     <MudCarousel Style="height: 80%; color: #ffcd39;top: 2%" @bind-SelectedIndex="count" ShowDelimiters="true" ShowArrows="false" AutoCycle="false" TData="object">
@@ -93,17 +95,14 @@
             newGuest.Date = item["date"];
             guestList.Add(newGuest);
         }
-        var guest = new Guest();
-        guest.Name = Name;
-        guest.Answer = answer;
-        guest.Date =DateTime.Now.ToString("dd.MM.yyyy HH:mm");
-        guest.Song = "Song";
-        Guest = guest;
-        var requestContent = new StringContent(JsonSerializer.Serialize(guest), Encoding.UTF8, "application/json");
+        Guest.Name = Name;
+        Guest.Answer = answer;
+        Guest.Date =DateTime.Now.ToString("dd.MM.yyyy HH:mm");
+        var requestContent = new StringContent(JsonSerializer.Serialize(Guest), Encoding.UTF8, "application/json");
 
-        if(guestList.Select(i => i.Name).Contains(guest.Name))
+        if(guestList.Select(i => i.Name).Contains(Guest.Name))
         {
-            var rowId = guestList.Select(i => i.Name).ToList().IndexOf(guest.Name) + 1;
+            var rowId = guestList.Select(i => i.Name).ToList().IndexOf(Guest.Name) + 1;
             Console.WriteLine(rowId);
             var putResult = await _client.PutAsync($"/guest/put/{rowId}", requestContent);
         }
@@ -112,6 +111,7 @@
             var postResult = await _client.PostAsync("/guest/post", requestContent);
         }
         disabled[answer] = false;
+        Snackbar.Add("Answer Saved!", Severity.Success);
     }
 
     protected async override void OnInitialized()
