@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
         {
             builder.WithOrigins("https://www.augoustosstachania.site",
                 "http://localhost:5026",
-                "https://localhost:7076").AllowAnyHeader()
+                "https://localhost:44386").AllowAnyHeader()
                 .AllowAnyMethod();;
         });
 });

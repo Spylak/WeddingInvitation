@@ -10,7 +10,7 @@ public class ApiClient :HttpClient
         }
         else
         {
-            BaseAddress = new Uri("https://localhost:7178");
+            BaseAddress = new Uri("https://localhost:53524");
         }
         
     }

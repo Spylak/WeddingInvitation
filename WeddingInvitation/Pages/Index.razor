@@ -13,36 +13,44 @@
 
 <PageTitle>Invitation</PageTitle>
 
-<div style="background-image: url(images/chania.webp);background-repeat: no-repeat;background-size: cover;width: 100vw;height: 100vh  ">
-    <MudCarousel Style="height: 80%; color: #ffcd39;top: 2%" @bind-SelectedIndex="count" ShowDelimiters="true" ShowArrows="false" AutoCycle="false" TData="object">
+<div style="background-color: white;background-size: cover;width: 100vw;height: 100vh;">
+    <MudCarousel Style="height: 95%;width: 50%;top: 2%;margin: auto !important" @bind-SelectedIndex="count" ShowBullets="true" BulletsClass="bullets" ShowArrows="false" AutoCycle="false" TData="object">
         <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-            <img @onclick="OnClick" style="cursor: pointer;border-radius: 5px" height="90%" width="60%" src="images/eventImg1.jpg"/>
+            <img @onclick="OnClick" style="cursor: pointer;border-radius: 5px" height="90%" width="60%" src="images/mainPic.jpg"/>
         </MudCarouselItem>
         <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-            <img style="cursor: pointer;border-radius: 5px" @onclick="OnClick" height="90%" width="60%" src="images/invitation.jpeg"/>
+            <img style="cursor: pointer;border-radius: 5px" @onclick="OnClick" height="100%" width="80%" src="images/churchInv.jpg"/>
         </MudCarouselItem>
         <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-            <img style="cursor: pointer;border-radius: 5px" @onclick="OnClick" height="90%" width="60%" src="images/invitation1.jpg"/>
+            <img style="cursor: pointer;border-radius: 5px" @onclick="OnClick" height="90%" width="100%" src="images/icecream.jpg"/>
+        </MudCarouselItem>
+        <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
+           <MudButton>Hello</MudButton>
         </MudCarouselItem>
     </MudCarousel>
-    <div style="text-align: center;margin-top: 30px">
-        <MudGrid>
-            <MudItem xs="6">
-                        <MudButton Variant="Variant.Filled" Disabled="@(disabled["Yes"])" Color="Color.Info" OnClick="@(() => OnSubmit("Yes"))">We will come!</MudButton>
-            </MudItem>
-            <MudItem xs="6">
-                        <MudButton Variant="Variant.Filled" Disabled="@(disabled["No"])" Color="Color.Error" OnClick="@(() => OnSubmit("No"))">We can't come.</MudButton>
-            </MudItem>
-            <MudItem xs="6">
-                        <MudButton Variant="Variant.Filled" Color="Color.Warning" OnClick="@(() => AddSong())">Add a song!</MudButton>
-            </MudItem> 
-            <MudItem xs="6" Style="text-align: center">
-                <MudTextField @bind-Value="Guest.Song" Variant="Variant.Outlined" ReadOnly="true" Style="background-color: #6610f2;height: 40px;width: 150px;color: #ffcd39;margin:-5px auto auto"></MudTextField>
-            </MudItem>
-        </MudGrid>
-    </div>
+    @* <div style="text-align: center;margin-top: 30px"> *@
+    @*     <MudGrid> *@
+    @*         <MudItem xs="6"> *@
+    @*                     <MudButton Variant="Variant.Filled" Disabled="@(disabled["Yes"])" Color="Color.Info" OnClick="@(() => OnSubmit("Yes"))">We will come!</MudButton> *@
+    @*         </MudItem> *@
+    @*         <MudItem xs="6"> *@
+    @*                     <MudButton Variant="Variant.Filled" Disabled="@(disabled["No"])" Color="Color.Error" OnClick="@(() => OnSubmit("No"))">We can't come.</MudButton> *@
+    @*         </MudItem> *@
+    @*         <MudItem xs="6"> *@
+    @*                     <MudButton Variant="Variant.Filled" Color="Color.Warning" OnClick="@(() => AddSong())">Add a song!</MudButton> *@
+    @*         </MudItem>  *@
+    @*         <MudItem xs="6" Style="text-align: center"> *@
+    @*             <MudTextField @bind-Value="Guest.Song" Variant="Variant.Outlined" ReadOnly="true" Style="background-color: #6610f2;height: 40px;width: 150px;color: #ffcd39;margin:-5px auto auto"></MudTextField> *@
+    @*         </MudItem> *@
+    @*     </MudGrid> *@
+    @* </div> *@
 </div>
 
+<style>
+    .bullets{
+    color: #92C3D9;
+    }
+</style>
 
 @code{
 
@@ -55,13 +63,13 @@
         {"No", false}
     };
     private int count = 0;
-    private string AnimationEntrance = "animate__animated animate__rotateInDownLeft";
-    private string AnimationExit = "animate__animated animate__rotateOutUpLeft";
+    private string AnimationEntrance = "animate__animated animate__fadeIn";
+    private string AnimationExit = "animate__animated animate__fadeOut";
 
     private async Task OnClick()
     {
         count++;
-        if (count > 2)
+        if (count > 3)
         {
             count = 0;
         }
