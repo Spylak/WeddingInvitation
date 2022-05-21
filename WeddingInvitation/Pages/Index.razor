@@ -14,15 +14,15 @@
 <PageTitle>Invitation</PageTitle>
 
 <div style="background-color: white;background-size: cover;width: 100vw;height: 100vh;">
-    <MudCarousel Style="height: 95%;width: 50%;top: 2%;margin: auto !important" @bind-SelectedIndex="count" ShowBullets="true" BulletsClass="bullets" ShowArrows="false" AutoCycle="false" TData="object">
+    <MudCarousel Style="height: 95%;top: 2%;margin: auto !important" @bind-SelectedIndex="count" ShowBullets="true" BulletsClass="bullets" ShowArrows="false" AutoCycle="false" TData="object">
         <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-            <img @onclick="OnClick" style="cursor: pointer;border-radius: 5px" height="90%" width="60%" src="images/mainPic.jpg"/>
+            <img @onclick="OnClick" class="firstType"  src="images/mainPic.jpg"/>
         </MudCarouselItem>
         <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-            <img style="cursor: pointer;border-radius: 5px" @onclick="OnClick" height="100%" width="80%" src="images/churchInv.jpg"/>
+            <img class="secondType" @onclick="OnClick"  src="images/churchInv.jpg"/>
         </MudCarouselItem>
         <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-            <img style="cursor: pointer;border-radius: 5px" @onclick="OnClick" height="90%" width="100%" src="images/icecream.jpg"/>
+            <img class="thirdType" @onclick="OnClick"  src="images/icecream.jpg"/>
         </MudCarouselItem>
         <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
            <MudButton>Hello</MudButton>
@@ -47,8 +47,37 @@
 </div>
 
 <style>
+.firstType{
+cursor: pointer;
+border-radius: 5px;
+height:90%;
+width:40%;
+}
+.thirdType{
+cursor: pointer;
+border-radius: 5px;
+height:100%;
+width:90%;
+}
+.secondType{
+cursor: pointer;
+border-radius: 5px;
+height:100%;
+width:70%;
+}
     .bullets{
     color: #92C3D9;
+    }
+    @@media only screen and (max-width:700px){
+       .secondType {
+         width:400px;
+       }
+       .firstType{
+         width: 80vw;
+       }
+       .thirdType{
+        width: 110vw;
+       }
     }
 </style>
 
