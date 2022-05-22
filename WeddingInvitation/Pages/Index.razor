@@ -28,15 +28,15 @@
         <MudCarouselItem Style="text-align: center;" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
            <EditForm Model="@Guest" OnValidSubmit="OnSubmit">
             <MudRadioGroup @bind-SelectedOption="Answer" Style="display: inline-grid">
-                <MudRadio  Option="true" Color="Color.Info" >Δε το χάνω με τίποτα!</MudRadio>
-                <MudRadio  Option="false" Color="Color.Info" >Θα είμαι εκεί με το πνεύμα!</MudRadio>
+                <MudRadio  Option="true"  >Δε το χάνω με τίποτα!</MudRadio>
+                <MudRadio  Option="false" >Θα είμαι εκεί με το πνεύμα!</MudRadio>
             </MudRadioGroup>
             <br/>
             <br/>
             <p class="mud-typography-body1">Θα χορέψω με την καρδιά μου αν παίξει το</p>
             <div style="display: flex">
                 <p class="mud-typography-body1" style="margin-left: auto;text-align: start;width: 120px">Τραγούδι:</p>
-                <MudInput @bind-Value="Song" Style="margin-right: auto;height: 25px" T="string"></MudInput>
+                <MudInput @bind-Value="Song" Style="margin-right: auto;height: 25px;" T="string"></MudInput>
             </div>
             <div style="display: flex">
                 <p class="mud-typography-body1" style="margin-left: auto;text-align: start;width: 120px">Καλλιτέχνης:</p>    
@@ -51,13 +51,18 @@
                 <p>Προαιρέτικη Λίστα Γάμου</p>
                 <p>Τράπεζα Πειραιώς IBAN: GR56 0172 7580 0057 5807 5820 257</p>
             </div>
-           <MudButton  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info">Αποστολή</MudButton>
+           <MudButton  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Style="background-color: #92C3D9;color: white">Αποστολή</MudButton>
            </EditForm>
         </MudCarouselItem>
     </MudCarousel>
 </div>
 }
-
+else
+{
+    <div style="text-align: center">
+            <MudProgressCircular Indeterminate="true" Style="margin-top:45vh;height:70px;width:70px;" Color="Color.Info"/>
+    </div>
+}
 <style>
 .firstType{
 cursor: pointer;
@@ -96,6 +101,9 @@ width:70%;
     .mud-typography-body1{
     font-size: 18px;
     font-family: 'Segoe UI';
+    }
+    .mud-icon-button{
+    color: #92C3D9;
     }
 </style>
 
