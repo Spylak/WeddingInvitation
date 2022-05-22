@@ -12,39 +12,51 @@
 @inject ISnackbar Snackbar
 
 <PageTitle>Invitation</PageTitle>
-
-<div style="background-color: white;background-size: cover;width: 100vw;height: 100vh;">
-    <MudCarousel Style="height: 95%;top: 2%;margin: auto !important" @bind-SelectedIndex="count" ShowBullets="true" BulletsClass="bullets" ShowArrows="false" AutoCycle="false" TData="object">
+@if (!isLoading)
+{
+    <div style="background-color: white;background-size: cover;width: 100vw;height: 100vh;">
+    <MudCarousel Style="height: 95%;top: 2%;margin: auto !important" @bind-SelectedIndex="count" ShowBullets="true" BulletsClass="bullets" BulletsPosition="Position.Bottom" ShowArrows="false" AutoCycle="false" TData="object">
         <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-            <img @onclick="OnClick" class="firstType"  src="images/mainPic.jpg"/>
+            <img @onclick="OnClick" class="firstType" src="images/mainPic.jpg"/>
         </MudCarouselItem>
         <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-            <img class="secondType" @onclick="OnClick"  src="images/churchInv.jpg"/>
+            <img class="secondType" @onclick="OnClick" src="images/churchInv.jpg"/>
         </MudCarouselItem>
         <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-            <img class="thirdType" @onclick="OnClick"  src="images/icecream.jpg"/>
+            <img class="thirdType" @onclick="OnClick" src="images/icecream.jpg"/>
         </MudCarouselItem>
-        <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-           <MudButton>Hello</MudButton>
+        <MudCarouselItem Style="text-align: center;" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
+           <EditForm Model="@Guest" OnValidSubmit="OnSubmit">
+            <MudRadioGroup @bind-SelectedOption="Answer" Style="display: inline-grid">
+                <MudRadio  Option="true" Color="Color.Info" >Δε το χάνω με τίποτα!</MudRadio>
+                <MudRadio  Option="false" Color="Color.Info" >Θα είμαι εκεί με το πνεύμα!</MudRadio>
+            </MudRadioGroup>
+            <br/>
+            <br/>
+            <p class="mud-typography-body1">Θα χορέψω με την καρδιά μου αν παίξει το</p>
+            <div style="display: flex">
+                <p class="mud-typography-body1" style="margin-left: auto;text-align: start;width: 120px">Τραγούδι:</p>
+                <MudInput @bind-Value="Song" Style="margin-right: auto;height: 25px" T="string"></MudInput>
+            </div>
+            <div style="display: flex">
+                <p class="mud-typography-body1" style="margin-left: auto;text-align: start;width: 120px">Καλλιτέχνης:</p>    
+                <MudInput @bind-Value="Artist"  Style="margin-right: auto;height: 25px"  T="string"></MudInput>
+            </div>
+            <br/>
+            <br/>
+            <div>
+                <p class="mud-typography-body1">Παρακαλούμε ενημερώστε μας για την παρουσία σας έως την 1 Ιουλίου</p>
+                <p class="mud-typography-body1">Ζωή: 6972666379  &  Δημήτρης: 6942444897</p>
+                <br/>
+                <p>Προαιρέτικη Λίστα Γάμου</p>
+                <p>Τράπεζα Πειραιώς IBAN: GR56 0172 7580 0057 5807 5820 257</p>
+            </div>
+           <MudButton  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info">Αποστολή</MudButton>
+           </EditForm>
         </MudCarouselItem>
     </MudCarousel>
-    @* <div style="text-align: center;margin-top: 30px"> *@
-    @*     <MudGrid> *@
-    @*         <MudItem xs="6"> *@
-    @*                     <MudButton Variant="Variant.Filled" Disabled="@(disabled["Yes"])" Color="Color.Info" OnClick="@(() => OnSubmit("Yes"))">We will come!</MudButton> *@
-    @*         </MudItem> *@
-    @*         <MudItem xs="6"> *@
-    @*                     <MudButton Variant="Variant.Filled" Disabled="@(disabled["No"])" Color="Color.Error" OnClick="@(() => OnSubmit("No"))">We can't come.</MudButton> *@
-    @*         </MudItem> *@
-    @*         <MudItem xs="6"> *@
-    @*                     <MudButton Variant="Variant.Filled" Color="Color.Warning" OnClick="@(() => AddSong())">Add a song!</MudButton> *@
-    @*         </MudItem>  *@
-    @*         <MudItem xs="6" Style="text-align: center"> *@
-    @*             <MudTextField @bind-Value="Guest.Song" Variant="Variant.Outlined" ReadOnly="true" Style="background-color: #6610f2;height: 40px;width: 150px;color: #ffcd39;margin:-5px auto auto"></MudTextField> *@
-    @*         </MudItem> *@
-    @*     </MudGrid> *@
-    @* </div> *@
 </div>
+}
 
 <style>
 .firstType{
@@ -74,27 +86,30 @@ width:70%;
        }
        .firstType{
          width: 80vw;
+         height: 75% ;
        }
        .thirdType{
         width: 110vw;
+        height: 60%;
        }
+    }
+    .mud-typography-body1{
+    font-size: 18px;
+    font-family: 'Segoe UI';
     }
 </style>
 
 @code{
 
-    
+    public bool Answer { get; set; } = true;
     private string Name { get; set; } = "";
-    private Guest Guest { get; set; } = new Guest() {Song = "Song"};
-    private Dictionary<string, bool> disabled = new Dictionary<string, bool>()
-    {
-        {"Yes", false},
-        {"No", false}
-    };
+    private string Song { get; set; } = "";
+    private string Artist { get; set; } = "";
+    private Guest Guest { get; set; } = new Guest() { Song = "Song" };
     private int count = 0;
     private string AnimationEntrance = "animate__animated animate__fadeIn";
     private string AnimationExit = "animate__animated animate__fadeOut";
-
+    private bool isLoading = false;
     private async Task OnClick()
     {
         count++;
@@ -104,22 +119,11 @@ width:70%;
         }
     }
 
-    public async Task AddSong()
-    {
-        var parameters = new DialogParameters { ["song"]=Guest.Song };
-
-        var dialog = DialogService.Show<SongDialog>("Add a song.", parameters);
-        var result = await dialog.Result;
-        if (result.Data is not null)
-        {
-            Guest.Song = result.Data.ToString();
-        }
-    }
     Timer timer = new Timer();
 
-    private async Task OnSubmit(string answer)
+    private async Task OnSubmit()
     {
-        disabled[answer] = true;
+        isLoading = true;
         var guestList = new List<Guest>();
         var getResult = await _client.GetAsync("Guest/Get");
         var body = await getResult.Content.ReadAsStringAsync();
@@ -133,11 +137,12 @@ width:70%;
             guestList.Add(newGuest);
         }
         Guest.Name = Name;
-        Guest.Answer = answer;
-        Guest.Date =DateTime.Now.ToString("dd.MM.yyyy HH:mm");
+        Guest.Answer = Answer?"Yes":"No";
+        Guest.Song = Song + "-" + Artist;
+        Guest.Date = DateTime.Now.ToString("dd.MM.yyyy HH:mm");
         var requestContent = new StringContent(JsonSerializer.Serialize(Guest), Encoding.UTF8, "application/json");
 
-        if(guestList.Select(i => i.Name).Contains(Guest.Name))
+        if (guestList.Select(i => i.Name).Contains(Guest.Name))
         {
             var rowId = guestList.Select(i => i.Name).ToList().IndexOf(Guest.Name) + 1;
             Console.WriteLine(rowId);
@@ -147,7 +152,7 @@ width:70%;
         {
             var postResult = await _client.PostAsync("/guest/post", requestContent);
         }
-        disabled[answer] = false;
+        isLoading = false;
         Snackbar.Add("Answer Saved!", Severity.Success);
     }
 
@@ -167,7 +172,7 @@ width:70%;
         {
             Name = name;
             await _localStorage.SetItemAsync("name", Name);
-            await _jsRuntime.InvokeVoidAsync("window.history.pushState", new {additionalInformation = "Updated the URL with JS"}, null, _navMan.BaseUri);
+            await _jsRuntime.InvokeVoidAsync("window.history.pushState", new { additionalInformation = "Updated the URL with JS" }, null, _navMan.BaseUri);
         }
         if (Name == "")
         {
