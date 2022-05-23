@@ -15,7 +15,7 @@
 @if (!isLoading)
 {
     <div style="background-color: white;background-size: cover;width: 100vw;height: 100vh;">
-    <MudCarousel Style="height: 95%;top: 2%;margin: auto !important" @bind-SelectedIndex="count" ShowBullets="true" BulletsClass="bullets" BulletsPosition="Position.Bottom" ShowArrows="false" AutoCycle="false" TData="object">
+    <MudCarousel Style="height: 95%;margin: auto !important" @bind-SelectedIndex="count" ShowBullets="true" BulletsClass="bullets" BulletsPosition="Position.Bottom" ShowArrows="false" AutoCycle="false" TData="object">
         <MudCarouselItem Style="text-align: center" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
             <img @onclick="OnClick" class="firstType" src="images/mainPic.jpg"/>
         </MudCarouselItem>
@@ -26,7 +26,7 @@
             <img class="thirdType" @onclick="OnClick" src="images/icecream.jpg"/>
         </MudCarouselItem>
         <MudCarouselItem Style="text-align: center;" Transition="Transition.Custom" CustomTransitionEnter="@AnimationEntrance" CustomTransitionExit="@AnimationExit">
-           <EditForm Model="@Guest" OnValidSubmit="OnSubmit">
+           <EditForm Model="@Guest" OnValidSubmit="OnSubmit" class="formClass">
             <MudRadioGroup @bind-SelectedOption="Answer" Style="display: inline-grid">
                 <MudRadio  Option="true"  >Δε το χάνω με τίποτα!</MudRadio>
                 <MudRadio  Option="false" >Θα είμαι εκεί με το πνεύμα!</MudRadio>
@@ -64,38 +64,45 @@ else
     </div>
 }
 <style>
+.formClass{
+margin-top: 10%
+}
 .firstType{
 cursor: pointer;
 border-radius: 5px;
-height:90%;
+height:100%;
 width:40%;
 }
 .thirdType{
 cursor: pointer;
 border-radius: 5px;
-height:100%;
-width:90%;
+height:105%;
+width:80%;
 }
 .secondType{
 cursor: pointer;
 border-radius: 5px;
-height:100%;
-width:70%;
+height:105%;
+width:60%;
 }
     .bullets{
     color: #92C3D9;
     }
     @@media only screen and (max-width:700px){
        .secondType {
-         width:400px;
+         width:100vw;
+         height: 90%;
        }
        .firstType{
-         width: 80vw;
+         width: 100vw;
          height: 75% ;
        }
        .thirdType{
         width: 110vw;
         height: 60%;
+       }
+       .formClass{
+       margin-top: 20%
        }
     }
     .mud-typography-body1{
